@@ -133,15 +133,17 @@ LiScript = (function () {
         '>=': '>='
     };
     for (var op in operators) {
-        translations[op] = function(){
-            return '(' + slice.call(arguments).map(tree_to_js).join(operators[op]) + ')';
-        };
+        (function (op) {
+            translations[op] = function　()　{
+                return '(' + slice.call(arguments).map(tree_to_js).join(operators[op]) + ')';
+            };
+        }(op));
     }
 
     var macros = {
         defmacro: function (name, args, body) {
             eval(tree_to_js(['LiScript.add_macro',['str',name],['fn',args,body]]));
-            return name;
+            return '"' + name + '"';
         },
         defreader:function (head, open, close) {
             eval(tree_to_js(['LiScript.add_reader',['str',head],['str',open],['str',close]]));
