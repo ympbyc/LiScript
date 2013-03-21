@@ -134,7 +134,7 @@ LiScript = (function () {
     };
     for (var op in operators) {
         (function (op) {
-            translations[op] = function　()　{
+            translations[op] = function () {
                 return '(' + slice.call(arguments).map(tree_to_js).join(operators[op]) + ')';
             };
         }(op));
